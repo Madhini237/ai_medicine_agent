@@ -1,0 +1,6 @@
+flask
+apscheduler
+python-telegram-bot
+requests
+sentence-transformers
+openai

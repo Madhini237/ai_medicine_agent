@@ -1,6 +1,7 @@
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 import requests
+import pytz
 
 from database import get_all_medicines
 
@@ -21,11 +22,15 @@ def send_message(chat_id, text):
 
 def check_medicines():
 
-    current_time = datetime.now().strftime("%H:%M")
+    ist = pytz.timezone("Asia/Kolkata")
+    current_time = datetime.now(ist).strftime("%H:%M")
+    print("Checking medicines at:", current_time)
 
     medicines = get_all_medicines()
+    print("Medicines in DB:", medicines)
 
     for chat_id, name, medicine, time in medicines:
+        print("Comparing:", current_time, "with", time)
 
         if current_time == time:
 
